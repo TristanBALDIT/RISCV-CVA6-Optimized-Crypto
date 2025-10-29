@@ -1,11 +1,11 @@
-# CVA6 Crypto Benchmark Tutorial
+# CVA6 Crypto Benchmark — Quick Start Guide
 
  The benchmark is based on the [**THALES CVA6 SOFTCORE CONTEST**](https://github.com/ThalesGroup/cva6-softcore-contest/blob/cv32a6_contest_24_25) toolchain and my own version of the CVA6 softcore, implementing a custom CVXIF coprocessor : [cva6_crypto](https://github.com/TristanBALDIT/cva6_crypto).
-This part is dedicated to the steup and use of the benchmark itself
+This part is dedicated to the setup and use of the benchmark itself.
 
-## Getting started 
 
-### Setup the softcore
+
+## Setup the softcore
 
 Checkout my own cva6 repository and initialize all submodules:
 ```
@@ -33,7 +33,7 @@ When the bitstream is loaded, the green LED `done` lights up.
 
 Now, the hardware is ready and the hyperterminal is connected to the UART output of the FPGA. We can now start the software.
 
-### Get started with software environment
+## Get started with software environment
 
 The benchmark executable application is already available in **sw/app**, but can be recompiled (to change for test params for example).
 
