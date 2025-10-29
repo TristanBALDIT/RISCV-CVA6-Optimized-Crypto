@@ -1,6 +1,8 @@
 //
 // Created by trist on 15/05/2025.
 //
+#ifdef __riscv
+
 #include <stdint.h>
 #include <stdio.h>
 #include <inttypes.h>
@@ -41,3 +43,5 @@ int main ()
 
     return 0;
 }
+
+#endif

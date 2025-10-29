@@ -1,6 +1,8 @@
 //
 // Created by trist on 04/06/2025.
 //
+#ifdef __riscv
+
 #include <stdint.h>
 #include <stdio.h>
 #include <inttypes.h>
@@ -29,3 +31,5 @@ int main()
     printf("Result OP_CHACHA : ");
     printf("%08" PRIX32 "\r\n", result);
 }
+
+#endif

@@ -6,8 +6,9 @@
 #include "aes/aes.h"
 #include "chacha/chacha.h"
 #include "chacha/poly1305.h"
-#include  "loader.h"
+#include "loader.h"
 #include "ascon/ascon.h"
+
 //#include "util.h"
 
 void print_state(uint32_t state[4])

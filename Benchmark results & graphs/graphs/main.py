@@ -164,7 +164,7 @@ if plot_instructions_per_blocks:
         plt.yscale('log', base=2)
         filename='../results/instructions_per_blocks_log.png'
     else :
-        filename='../results/instructions_per_blocks.png'
+        filename= '../results/instructions_per_blocks.png'
     plt.tight_layout()
     plt.savefig(filename, dpi=300)
     print('\n')
