@@ -1,5 +1,9 @@
+import os
+
 import matplotlib.pyplot as plt
 from data import algorithms_var
+
+os.makedirs("../results", exist_ok=True)
 
 for algo_name, data in algorithms_var.items():
     data['delta'] = []
@@ -30,8 +34,10 @@ print(algorithms_var['ChaCha20']['var'])
 
 plt.figure(figsize=(10, 6))
 plt.plot(algorithms_var['ChaCha20']['data-1000'])
-plt.xlabel('Nombre de blocs chiffrés')
+plt.title('ChaCha20 cycles evolution (1000 cycles)')
+plt.xlabel('Number of encrypted blocks')
 plt.ylabel('Cycles / Bit')
+plt.savefig("../results/ChaCha20_data-1000.png", dpi=300)
 
 fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
@@ -43,7 +49,8 @@ for ax in axes.flat:
     ax.set_title(display_algo[counter])
     counter += 1
 
-fig.suptitle('Evolution du nombre de cycles en fonction des itérations', fontsize=16)
+fig.suptitle('Evolution of cycles as a function of iterations', fontsize=16)
+plt.savefig("../results/cycles_evolution_subplots.png", dpi=300)
 
 markers = ['o', 's', 'D', '^', 'v', '<', '>']
 
@@ -58,11 +65,11 @@ for algo_name, data in algorithms_var.items():
              linestyle='-',
              linewidth=1)
 
-plt.xlabel('Numéro d\'itération')
-plt.ylabel('Variance du nombre de cycles')
-plt.title('Variance du nombre de cycles par algorithme en fonction des itérations')
+plt.xlabel('Iteration number')
+plt.ylabel('Cycles variance')
+plt.title('Cycles variance per algorithm vs iterations')
 plt.grid(True, linestyle='--', alpha=0.7)
 plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
 plt.tight_layout()
-
+plt.savefig("../results/cycles_variance.png", dpi=300)
 plt.show()

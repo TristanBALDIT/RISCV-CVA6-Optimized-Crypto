@@ -1,3 +1,5 @@
+import os
+
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 import numpy as np
@@ -18,8 +20,8 @@ log_instructions_per_blocks = False
 plot_cycles_per_bit_per_blocks = True
 plot_instructions_per_bit_per_blocks = True
 
-plot_delta = False
-plot_cycles_per_iteration = False
+plot_delta = True
+plot_cycles_per_iteration = True
 
 plot_cycles_per_ad = True
 plot_instructions_per_ad = True
@@ -27,6 +29,9 @@ plot_instructions_per_ad = True
 ##############################################################################################
 #                                       PLOTS CODE                                           #
 ##############################################################################################
+
+os.makedirs("../results", exist_ok=True)
+
 
 # data transformation
 for algo, data in algorithms.items():
@@ -84,11 +89,11 @@ if plot_bubbles:
     plt.grid(True, color='gray', linestyle='--', linewidth=0.5, alpha=0.5)
 
     plt.tight_layout()
-
+    plt.savefig("../results/bubble_plot.png", dpi=300)
 # Cycles per blocks number
 if plot_cycles_per_blocks:
     plt.figure(figsize=(10, 6))
-    print('REGRESSSION LINEAIRE\n')
+    print('LINEAR REGRESSION\n')
 
     # creating the trace for each algorithm
     for algo_name, data in algorithms.items():
@@ -114,22 +119,26 @@ if plot_cycles_per_blocks:
         #y_pred = [slope * xi + intercept for xi in data['blocks']]
         #plt.plot(data['blocks'], y_pred, '--', label=f'{algo_name} fit (R²={r_value**2:.2f})', color=data['color'])
 
-    plt.xlabel('Nombre de blocs chiffrés')
-    plt.ylabel('Nombre de cycles')
-    plt.title('Nombre de cycles par algorithme en fonction du nombre de blocs')
+    plt.xlabel('Number of encrypted blocks')
+    plt.ylabel('Number of cycles')
+    plt.title('Number of cycles per algorithm vs number of blocks')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1), )
 
     if log_cycles_per_blocks:
         plt.xscale('log', base=2)
         plt.yscale('log', base=2)
+        filename = '../results/cycles_per_blocks_log.png'
+    else:
+        filename = '../results/cycles_per_blocks.png'
     plt.tight_layout()
+    plt.savefig(filename, dpi=300)
     print('\n\n')
 
 # Instructions per blocks number
 if plot_instructions_per_blocks:
     plt.figure(figsize=(10, 6))
-    print('REGRESSION LINEAIRE\n')
+    print('LINEAR REGRESSION\n')
 
     for algo_name, data in algorithms.items():
         plt.plot(data['blocks'], data['instructions'],
@@ -144,16 +153,20 @@ if plot_instructions_per_blocks:
         print(f'{algo_name} fit (R²={r_value ** 2:.2f})')
         print(slope, intercept, r_value, std_err)
 
-    plt.xlabel('Nombre de blocs chiffrés')
-    plt.ylabel('Nombre d\'instructions')
-    plt.title('Nombre d\'instructions par algorithme en fonction du nombre de blocs')
+    plt.xlabel('Number of encrypted blocks')
+    plt.ylabel('Number of instructions')
+    plt.title('Number of instructions per algorithm vs number of blocks')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
     if log_instructions_per_blocks:
         plt.xscale('log', base=2)
         plt.yscale('log', base=2)
+        filename='../results/instructions_per_blocks_log.png'
+    else :
+        filename='../results/instructions_per_blocks.png'
     plt.tight_layout()
+    plt.savefig(filename, dpi=300)
     print('\n')
 
 if plot_cycles_per_bit_per_blocks:
@@ -169,13 +182,13 @@ if plot_cycles_per_bit_per_blocks:
                  linestyle='-',
                  linewidth=1)
 
-    plt.xlabel('Nombre de blocs chiffrés')
+    plt.xlabel('Number of encrypted blocks')
     plt.ylabel('Cycles / Bit')
-    plt.title('Cycles/Bit par algorithme en fonction du nombre de blocs')
+    plt.title('Cycles/Bit per algorithm vs number of blocks')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-
+    plt.savefig("../results/cycles_per_bit_per_blocks.png", dpi=300)
 
 if plot_instructions_per_bit_per_blocks :
     plt.figure(figsize=(10, 6))
@@ -190,12 +203,13 @@ if plot_instructions_per_bit_per_blocks :
                  linestyle='-',
                  linewidth=1)
 
-    plt.xlabel('Nombre de blocs chiffrés')
+    plt.xlabel('Number of encrypted blocks')
     plt.ylabel('Instructions / Bit')
-    plt.title('Instructions/Bit par algorithme en fonction du nombre de blocs')
+    plt.title('Instructions/Bit per algorithm vs number of blocks')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
+    plt.savefig("../results/instructions_per_bit_per_blocks.png", dpi=300)
 
 if plot_delta:
     plt.figure(figsize=(10, 6))
@@ -210,12 +224,13 @@ if plot_delta:
                  linestyle='-',
                  linewidth=1)
 
-    plt.xlabel('Nombre d\'itérations')
-    plt.ylabel('D_cycles')
-    plt.title('Delta de cycles en fonction du nombre d\'itérations')
+    plt.xlabel('Number of iterations')
+    plt.ylabel('Δ Cycles')
+    plt.title('Cycle delta as a function of the number of iterations')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
+    plt.savefig("../results/delta_plot.png", dpi=300)
 
 # Cycles number per iteration number
 if plot_cycles_per_iteration:
@@ -244,14 +259,15 @@ if plot_cycles_per_iteration:
 
     # Legend creation
     handles, labels = axs['4'].get_legend_handles_labels()
-    fig.legend(handles, labels, loc='outside right upper', bbox_to_anchor=(1, 0.95))   # Position de la légende
+    fig.legend(handles, labels, loc='outside right upper', bbox_to_anchor=(1, 0.95))
     plt.tight_layout(rect=(0, 0, 0.75, 1))
+    plt.savefig("../results/m_cycles_per_iterations.png", dpi=300)
 
 # Cycles per AD size
 if plot_cycles_per_ad:
 
     plt.figure(figsize=(10, 6))
-    print('REGRESSION LINEAIRE\n')
+    print('LINEAR REGRESSION\n\n')
 
     for algo_name, data in algorithms_AD.items():
         plt.errorbar(
@@ -276,10 +292,11 @@ if plot_cycles_per_ad:
 
     plt.xlabel('AD (bits)')
     plt.ylabel('Cycles ')
-    plt.title('Nombre de cycles par algorithme en fonction de la taille de l\'AD')
+    plt.title('Number of cycles per algorithm vs AD size')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
+    plt.savefig("../results/cycles_per_AD.png", dpi=300)
     print('\n\n')
 
 # Instructions per AD size
@@ -303,10 +320,11 @@ if plot_instructions_per_ad:
 
     plt.xlabel('AD (bits)')
     plt.ylabel('Instructions ')
-    plt.title('Nombre d\'instructions par algorithme en fonction de la taille de l\'AD')
+    plt.title('Number of instructions per algorithm vs AD size')
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
+    plt.savefig("../results/instructions_per_AD.png", dpi=300)
 
 plt.show()
 
