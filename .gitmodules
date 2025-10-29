@@ -1,0 +1,3 @@
+[submodule "cva6_crypto"]
+	path = cva6_crypto
+	url = https://github.com/TristanBALDIT/cva6_crypto.git
