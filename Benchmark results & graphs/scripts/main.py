@@ -30,7 +30,7 @@ plot_instructions_per_ad = True
 #                                       PLOTS CODE                                           #
 ##############################################################################################
 
-os.makedirs("../results", exist_ok=True)
+os.makedirs("../graphs", exist_ok=True)
 
 
 # data transformation
@@ -89,7 +89,7 @@ if plot_bubbles:
     plt.grid(True, color='gray', linestyle='--', linewidth=0.5, alpha=0.5)
 
     plt.tight_layout()
-    plt.savefig("../results/bubble_plot.png", dpi=300)
+    plt.savefig("../graphs/bubble_plot.png", dpi=300)
 # Cycles per blocks number
 if plot_cycles_per_blocks:
     plt.figure(figsize=(10, 6))
@@ -128,9 +128,9 @@ if plot_cycles_per_blocks:
     if log_cycles_per_blocks:
         plt.xscale('log', base=2)
         plt.yscale('log', base=2)
-        filename = '../results/cycles_per_blocks_log.png'
+        filename = '../graphs/cycles_per_blocks_log.png'
     else:
-        filename = '../results/cycles_per_blocks.png'
+        filename = '../graphs/cycles_per_blocks.png'
     plt.tight_layout()
     plt.savefig(filename, dpi=300)
     print('\n\n')
@@ -162,9 +162,9 @@ if plot_instructions_per_blocks:
     if log_instructions_per_blocks:
         plt.xscale('log', base=2)
         plt.yscale('log', base=2)
-        filename='../results/instructions_per_blocks_log.png'
+        filename= '../graphs/instructions_per_blocks_log.png'
     else :
-        filename= '../results/instructions_per_blocks.png'
+        filename= '../graphs/instructions_per_blocks.png'
     plt.tight_layout()
     plt.savefig(filename, dpi=300)
     print('\n')
@@ -188,7 +188,7 @@ if plot_cycles_per_bit_per_blocks:
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-    plt.savefig("../results/cycles_per_bit_per_blocks.png", dpi=300)
+    plt.savefig("../graphs/cycles_per_bit_per_blocks.png", dpi=300)
 
 if plot_instructions_per_bit_per_blocks :
     plt.figure(figsize=(10, 6))
@@ -209,7 +209,7 @@ if plot_instructions_per_bit_per_blocks :
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-    plt.savefig("../results/instructions_per_bit_per_blocks.png", dpi=300)
+    plt.savefig("../graphs/instructions_per_bit_per_blocks.png", dpi=300)
 
 if plot_delta:
     plt.figure(figsize=(10, 6))
@@ -230,7 +230,7 @@ if plot_delta:
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-    plt.savefig("../results/delta_plot.png", dpi=300)
+    plt.savefig("../graphs/delta_plot.png", dpi=300)
 
 # Cycles number per iteration number
 if plot_cycles_per_iteration:
@@ -261,7 +261,7 @@ if plot_cycles_per_iteration:
     handles, labels = axs['4'].get_legend_handles_labels()
     fig.legend(handles, labels, loc='outside right upper', bbox_to_anchor=(1, 0.95))
     plt.tight_layout(rect=(0, 0, 0.75, 1))
-    plt.savefig("../results/m_cycles_per_iterations.png", dpi=300)
+    plt.savefig("../graphs/m_cycles_per_iterations.png", dpi=300)
 
 # Cycles per AD size
 if plot_cycles_per_ad:
@@ -296,7 +296,7 @@ if plot_cycles_per_ad:
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-    plt.savefig("../results/cycles_per_AD.png", dpi=300)
+    plt.savefig("../graphs/cycles_per_AD.png", dpi=300)
     print('\n\n')
 
 # Instructions per AD size
@@ -324,7 +324,7 @@ if plot_instructions_per_ad:
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
     plt.tight_layout()
-    plt.savefig("../results/instructions_per_AD.png", dpi=300)
+    plt.savefig("../graphs/instructions_per_AD.png", dpi=300)
 
 plt.show()
 
