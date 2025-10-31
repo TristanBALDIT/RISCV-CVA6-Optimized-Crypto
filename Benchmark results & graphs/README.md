@@ -52,8 +52,9 @@ the pre-optimisation.
 The `data.py` hold formatted for plotting data from my pre-optimisation benchmark.
 The resulting graphs are stored in the `graphs/`.
 
-Here 2 figures examples: 
-
+Here 2 figures examples:  
+<br>
+<br>
 <div align="center">
-  <img src="./graphs/cycles_per_blocks.png" alt="Alt Text" width="600">
+  <img src="./graphs/cycles_per_blocks.png" alt="Alt Text" width="900">
 </div>
