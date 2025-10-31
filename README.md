@@ -36,8 +36,25 @@ The **ZYBO Z7-20** toolchain used to implement and test the modified CVA6 softco
 
 - `cva6_crypto/` — Modified version of the cva6 softcore containing the CVXIF coprocessor
 
+## CVA6 Softcore and modifications
+
+This project is fully based on the **CVA6 softcore** : a RISCV, 6-stage, single-issue, in-order CPU project developed
+by the [OpenHardware Group](https://openhwfoundation.org). This family of six-stage RISC-V cores supports a wide range of ISA extensions, 
+including those required to boot Linux, making it far more capable than many lightweight cores. 
+Moreover, CVA6 implements key RISC-V hardware standards, notably the **Core-V eXtension Interface** ([CV-X-IF](https://github.com/openhwgroup/core-v-xif))
+allowing the asy development of tighly coupled coprocessors.
+
+The `cva6_crypto/` contains a personal fork of the CVA6 main repo were is implemented as small coprocessor 
+on the CVXIF interface, used to execute custom arithmetics operations optimising the execution of ChaCha20 and Ascon 
+symmetric ciphers.
 
 ## Benchmark codes
 
 All the benchmark codes are accessible in the [associated directory](Benchmark%20codes)
-which also includes a complete tutorial on [how to get started with the **ZYBO Z7-20** toolchain](/Benchmark%20codes/README.md)
+which also includes a complete tutorial on [how to get started with the **ZYBO Z7-20** toolchain](/Benchmark%20codes/README.md).
+
+## Benchmark codes
+
+The `Benchmarks results & graphs/` contains data from both pre- and post-optimisation benchmarks (`benchmark.xlsx`) as well 
+as python scripts generating graphs from the pre-optimisation data only in `Benchmarks results & graphs/scripts/`. Finally, the graphs generated are 
+stored in the `Benchmarks results & graphs/results/ folder`.

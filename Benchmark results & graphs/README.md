@@ -58,3 +58,13 @@ Here 2 figures examples:
 <div align="center">
   <img src="./graphs/cycles_per_blocks.png" alt="Alt Text" width="900">
 </div>
+<br>
+<br>
+<div align="center">
+  <img src="./graphs/cycles_variance.png" alt="Alt Text" width="900">
+</div>
+<br>
+<br>
+
+The raw measured data from both pre- and post-optimisation benchmarks are stored 
+in the Excel sheet `benchmark.xlsx`.
