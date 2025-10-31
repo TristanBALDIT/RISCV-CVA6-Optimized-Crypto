@@ -27,7 +27,7 @@ $ make cva6_fpga
 $ make program_cva6_fpga
 ```
 When the bitstream is loaded, the green LED `done` lights up.
-![alt text](./docs/pictures/20201204_160542.jpg)
+![alt text](../docs/pictures/20201204_160542.jpg)
 
 4. Get a hyperterminal configured on /dev/ttyUSB0 115200-8-N-1
 
@@ -60,7 +60,7 @@ docker run -ti --privileged -v `realpath sw`:/workdir sw-docker:v1
 ```
 
 The **sw** directory is mounted in the docker container.
-![alt text](./docs/pictures/docker_image.png)
+![alt text](../docs/pictures/docker_image.png)
 
 Once in the **sw-docker** Docker container, you are in the default directory **/workdir** which corresponds to the sw directory in the host OS.
 
