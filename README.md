@@ -1,3 +1,4 @@
+[![DOI](https://sandbox.zenodo.org/badge/951941986.svg)](https://handle.test.datacite.org/10.5072/zenodo.446316)
 
 # RISCV-CVA6-Optimized-Crypto
 
