@@ -1,6 +1,7 @@
 import os
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 from scipy.stats import linregress
 import numpy as np
 from data import *
@@ -8,6 +9,8 @@ from data import *
 ##############################################################################################
 #                                       DISPLAY CHOICES                                     #
 ##############################################################################################
+
+include_AES = False
 
 plot_bubbles = False
 
@@ -90,6 +93,7 @@ if plot_bubbles:
 
     plt.tight_layout()
     plt.savefig("../graphs/bubble_plot.png", dpi=300)
+
 # Cycles per blocks number
 if plot_cycles_per_blocks:
     plt.figure(figsize=(10, 6))
@@ -97,33 +101,45 @@ if plot_cycles_per_blocks:
 
     # creating the trace for each algorithm
     for algo_name, data in algorithms.items():
-        plt.errorbar(data['blocks'], data['mean_cycles'],
-                     yerr=np.array([
-                         [m - min_val for m, min_val in zip(data['mean_cycles'], data['min_cycles'])],
-                         [max_val - m for m, max_val in zip(data['mean_cycles'], data['max_cycles'])]
-                     ]),
-                     label=algo_name,
-                     color=data['color'],
-                     capsize=5,
-                     capthick=1,
-                     marker=markers[data['style']],
-                     markersize=4,
-                     alpha=1,
-                     linestyle='-',
-                     linewidth=1)
+        if 'AES' not in algo_name or include_AES:
+            plt.errorbar(data['blocks'], data['mean_cycles'],
+                         yerr=np.array([
+                             [m - min_val for m, min_val in zip(data['mean_cycles'], data['min_cycles'])],
+                             [max_val - m for m, max_val in zip(data['mean_cycles'], data['max_cycles'])]
+                         ]),
+                         label=algo_name,
+                         color=data['color'],
+                         capsize=5,
+                         capthick=1,
+                         marker=markers[data['style']],
+                         markersize=4,
+                         alpha=1,
+                         linestyle='-',
+                         linewidth=2)
 
-        slope, intercept, r_value, p_value, std_err = linregress(data['blocks'], data['mean_cycles'])
-        print(f'{algo_name} fit (R²={r_value ** 2:.2f})')
-        print(slope, intercept, r_value, p_value, std_err)
-        # Regresssion plotting
-        #y_pred = [slope * xi + intercept for xi in data['blocks']]
-        #plt.plot(data['blocks'], y_pred, '--', label=f'{algo_name} fit (R²={r_value**2:.2f})', color=data['color'])
+            slope, intercept, r_value, p_value, std_err = linregress(data['blocks'], data['mean_cycles'])
+            print(f'{algo_name} fit (R²={r_value ** 2:.2f})')
+            print(slope, intercept, r_value, p_value, std_err)
+            # Regresssion plotting
+            #y_pred = [slope * xi + intercept for xi in data['blocks']]
+            #plt.plot(data['blocks'], y_pred, '--', label=f'{algo_name} fit (R²={r_value**2:.2f})', color=data['color'])
 
-    plt.xlabel('Number of encrypted blocks')
-    plt.ylabel('Number of cycles')
-    plt.title('Number of cycles per algorithm vs number of blocks')
+    # --- CONFIGURATION DU FORMATTEUR ICI ---
+    ax = plt.gca()  # Récupère l'axe actuel
+    formatter = ticker.ScalarFormatter(useMathText=True)
+    formatter.set_scientific(True)
+    formatter.set_powerlimits((4, 4))  # Force le format 10^4
+    ax.yaxis.set_major_formatter(formatter)
+
+    # Ajuster la taille de la police du petit "x10^4" en haut de l'axe
+    ax.yaxis.get_offset_text().set_fontsize(15)
+
+    plt.xlabel('Number of encrypted/decrypted blocks', fontsize=20)
+    plt.ylabel('Cycles', fontsize=20)
+    plt.title('Cycle count per algorithm over blocks number', fontsize=23)
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend(loc='upper left', bbox_to_anchor=(1, 1), )
+    plt.legend(loc='upper left', fontsize=23)
+    plt.tick_params(axis='both', which='major', labelsize=17)
 
     if log_cycles_per_blocks:
         plt.xscale('log', base=2)
@@ -141,23 +157,35 @@ if plot_instructions_per_blocks:
     print('LINEAR REGRESSION\n')
 
     for algo_name, data in algorithms.items():
-        plt.plot(data['blocks'], data['instructions'],
-                 label=algo_name,
-                 color=data['color'],
-                 marker=markers[data['style']],
-                 markersize=4,
-                 alpha=1,
-                 linestyle='-',
-                 linewidth=1)
-        slope, intercept, r_value, p_value, std_err = linregress(data['blocks'], data['instructions'])
-        print(f'{algo_name} fit (R²={r_value ** 2:.2f})')
-        print(slope, intercept, r_value, std_err)
+        if 'AES' not in algo_name or include_AES:
+            plt.plot(data['blocks'], data['instructions'],
+                     label=algo_name,
+                     color=data['color'],
+                     marker=markers[data['style']],
+                     markersize=4,
+                     alpha=1,
+                     linestyle='-',
+                     linewidth=2)
+            slope, intercept, r_value, p_value, std_err = linregress(data['blocks'], data['instructions'])
+            print(f'{algo_name} fit (R²={r_value ** 2:.2f})')
+            print(slope, intercept, r_value, std_err)
 
-    plt.xlabel('Number of encrypted blocks')
-    plt.ylabel('Number of instructions')
-    plt.title('Number of instructions per algorithm vs number of blocks')
+    # --- CONFIGURATION DU FORMATTEUR ICI ---
+    ax = plt.gca()  # Récupère l'axe actuel
+    formatter = ticker.ScalarFormatter(useMathText=True)
+    formatter.set_scientific(True)
+    formatter.set_powerlimits((4, 4))  # Force le format 10^4
+    ax.yaxis.set_major_formatter(formatter)
+
+    # Ajuster la taille de la police du petit "x10^4" en haut de l'axe
+    ax.yaxis.get_offset_text().set_fontsize(15)
+
+    plt.xlabel('Number of encrypted/decrypted blocks', fontsize=20)
+    plt.ylabel('Instructions', fontsize=20)
+    plt.title('Instruction count per algorithm over blocks number', fontsize=23)
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+    plt.legend(loc='upper left', fontsize=23)
+    plt.tick_params(axis='both', which='major', labelsize=17)
 
     if log_instructions_per_blocks:
         plt.xscale('log', base=2)

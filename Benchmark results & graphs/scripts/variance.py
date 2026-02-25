@@ -41,7 +41,8 @@ plt.savefig("../graphs/ChaCha20_data-1000.png", dpi=300)
 
 fig, axes = plt.subplots(2, 2, figsize=(10, 8))
 
-display_algo = ['ChaCha20', 'AES-CTR-128', 'AES-GCM-128', 'AES-GCM-192']
+#display_algo = ['ChaCha20', 'AES-CTR-128', 'AES-GCM-128', 'AES-GCM-192']
+display_algo = ['ChaCha20', 'ChaCha20-Poly1305', 'ASCON_128-Encrypt', 'ASCON_128a-Encrypt']
 counter = 0
 
 for ax in axes.flat:
@@ -50,6 +51,8 @@ for ax in axes.flat:
     counter += 1
 
 fig.suptitle('Evolution of cycles as a function of iterations', fontsize=16)
+fig.supxlabel('Iteration number')
+fig.supylabel('Number of cycles to encrypt 100 blocks')
 plt.savefig("../graphs/cycles_evolution_subplots.png", dpi=300)
 
 markers = ['o', 's', 'D', '^', 'v', '<', '>']
